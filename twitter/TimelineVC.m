@@ -7,6 +7,7 @@
 //
 
 #import "TimelineVC.h"
+#import "TweetDetailViewController.h"
 
 @interface TimelineVC ()
 
@@ -88,6 +89,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Tweet *tweet = self.tweets[indexPath.row];
+    TweetDetailViewController *tdvc = [[TweetDetailViewController alloc] init];
+    tdvc.tweetText.text = tweet.text;
+    [[self navigationController] pushViewController:tdvc animated:YES];
     NSLog(@"%@", tweet.id_str);
 }
 
