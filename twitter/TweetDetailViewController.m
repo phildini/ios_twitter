@@ -7,9 +7,11 @@
 //
 
 #import "TweetDetailViewController.h"
+#import "Tweet.h"
 
 @interface TweetDetailViewController ()
 
+@property (nonatomic, strong) Tweet *tweet;
 
 @end
 
@@ -24,10 +26,20 @@
     return self;
 }
 
+- (id)initWithTweet:(Tweet *)tweet {
+    self = [super init];
+    self.tweet = tweet;
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    NSLog(@"%@", self.tweet.text);
+    self.tweetText.text = self.tweet.text;
+    self.tweetText.numberOfLines = 0;
+    self.tweetText.lineBreakMode = NSLineBreakByWordWrapping;
 }
 
 - (void)didReceiveMemoryWarning

@@ -26,6 +26,10 @@
     return [self.data valueOrNilForKeyPath:@"user.screen_name"];
 }
 
+- (NSString *)profile_pic {
+    return [self.data valueOrNilForKeyPath:@"user.profile_image_url"];
+}
+
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {
     NSMutableArray *tweets = [[NSMutableArray alloc] initWithCapacity:array.count];
     for (NSDictionary *params in array) {

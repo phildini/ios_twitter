@@ -11,4 +11,6 @@
 @interface TweetDetailViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UILabel *tweetText;
 
+- (id)initWithTweet:(Tweet *)tweet;
+
 @end

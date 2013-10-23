@@ -9,6 +9,7 @@
 #import "TimelineVC.h"
 #import "TweetCell.h"
 #import "TweetDetailViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface TimelineVC ()
 
@@ -77,6 +78,9 @@
     cell.tweetLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.nameLabel.text = tweet.user_name;
     cell.atLabel.text = tweet.screen_name;
+    UIImageView *imageView = nil;
+    [imageView setImageWithURL:[NSURL URLWithString:tweet.profile_pic]];
+    cell.profileImage = imageView;
     
     return cell;
 }
@@ -97,8 +101,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     Tweet *tweet = self.tweets[indexPath.row];
-    TweetDetailViewController *tdvc = [[TweetDetailViewController alloc] init];
-    tdvc.tweetText.text = tweet.text;
+    TweetDetailViewController *tdvc = [[TweetDetailViewController alloc] initWithTweet:tweet];
     [[self navigationController] pushViewController:tdvc animated:YES];
     NSLog(@"%@", tweet.id_str);
 }
