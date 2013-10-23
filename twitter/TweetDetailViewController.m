@@ -10,6 +10,7 @@
 
 @interface TweetDetailViewController ()
 
+
 @end
 
 @implementation TweetDetailViewController
@@ -18,7 +19,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.title = @"Tweet";
     }
     return self;
 }

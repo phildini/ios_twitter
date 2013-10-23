@@ -7,6 +7,7 @@
 //
 
 #import "TimelineVC.h"
+#import "TweetCell.h"
 #import "TweetDetailViewController.h"
 
 @interface TimelineVC ()
@@ -36,6 +37,9 @@
     [super viewDidLoad];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton)];
+    
+    UINib *tweetCellNib = [UINib nibWithNibName:@"TweetCell" bundle:nil];
+    [self.tableView registerNib:tweetCellNib forCellReuseIdentifier:@"TweetCell"];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -64,21 +68,25 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *CellIdentifier = @"Cell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+    static NSString *CellIdentifier = @"TweetCell";
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+
 
     Tweet *tweet = self.tweets[indexPath.row];
-    cell.textLabel.text = tweet.text;
-    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.textLabel.numberOfLines = 0;
+    cell.tweetLabel.text = tweet.text;
+    cell.tweetLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    cell.nameLabel.text = tweet.user_name;
+    cell.atLabel.text = tweet.screen_name;
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70.0f;
+    Tweet *tweet = self.tweets[indexPath.row];
+    
+    CGRect tweetRect = [tweet.text boundingRectWithSize:CGSizeMake(227.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil];
+    return 50 + tweetRect.size.height;
 }
 
 
